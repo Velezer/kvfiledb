@@ -4,7 +4,7 @@ import path from 'path'
 export class KVF {
     private path: string
     constructor() {
-        this.path = fs.mkdtempSync('_temp_')
+        this.path = '_temp_'
     }
 
     /**
