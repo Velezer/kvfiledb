@@ -1,6 +1,6 @@
 {
   "name": "kvfiledb",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "key-value file database with ttl",
   "scripts": {
     "build": "tsc",
