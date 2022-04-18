@@ -1,6 +1,6 @@
 {
   "name": "kvfiledb",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "key-value file database with ttl",
   "scripts": {
     "build": "tsc",
@@ -10,7 +10,9 @@
   },
   "main": "kvf.js",
   "types": "kvf.d.js",
-  "files": ["./lib/**/*"],
+  "files": [
+    "./lib/**/*"
+  ],
   "keywords": [
     "key",
     "value",
