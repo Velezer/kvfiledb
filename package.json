@@ -11,7 +11,7 @@
   "main": "kvf.js",
   "types": "kvf.d.js",
   "files": [
-    "./lib/**/*"
+    "lib/**/*"
   ],
   "keywords": [
     "key",
