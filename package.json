@@ -8,7 +8,9 @@
     "test": "jest --coverage",
     "tdd": "jest --watchAll"
   },
-  "types": "dist/index.d.ts",
+  "main": "kvf.js",
+  "types": "kvf.d.js",
+  "files": ["./lib/**/*"],
   "keywords": [
     "key",
     "value",
