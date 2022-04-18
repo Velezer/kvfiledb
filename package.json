@@ -8,8 +8,8 @@
     "test": "jest --coverage",
     "tdd": "jest --watchAll"
   },
-  "main": "kvf.js",
-  "types": "kvf.d.js",
+  "main": "lib/kvf.js",
+  "types": "lib/kvf.d.ts",
   "files": [
     "lib/**/*"
   ],
