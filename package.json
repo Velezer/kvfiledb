@@ -1,0 +1,28 @@
+{
+  "name": "kvfiledb",
+  "version": "0.0.0",
+  "description": "key-value file database with ttl",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node app.ts",
+    "test": "jest --coverage",
+    "tdd": "jest --watchAll"
+  },
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "key",
+    "value",
+    "file",
+    "database",
+    "db"
+  ],
+  "author": "Velezer",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.4",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  }
+}
