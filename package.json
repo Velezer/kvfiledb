@@ -3,10 +3,13 @@
   "version": "0.0.4",
   "description": "key-value file database with ttl",
   "scripts": {
+    "prebuild": "npm run typecheck && npm t",
     "build": "tsc",
-    "start": "ts-node app.ts",
-    "test": "jest --coverage",
-    "tdd": "jest --watchAll"
+    "typecheck": "tsc --noEmit",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:clearCache": "jest --clearCache"
   },
   "main": "lib/kvf.js",
   "types": "lib/kvf.d.ts",

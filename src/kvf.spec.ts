@@ -36,7 +36,7 @@ describe('kvf with ttl', () => {
     it('save string', async () => {
         const key = 'key-ttl'
         const value = 'value'
-        const ttl = 0
+        const ttl = 10
 
         kvf.set(key, value, ttl)
         const data = kvf.get(key) as string

@@ -3,17 +3,17 @@ import path from 'path'
 
 export class KVF {
     private path: string
-    constructor() {
-        this.path = '_temp_'
+    constructor(path: string = '_temp_') {
+        this.path = path
     }
 
     /**
-     * 
-     * @param key please don't use invalid filename
+     * the data will be stored as a file
+     * @param key is a filename. please don't use invalid filename
      * @param data can be anything
      * @param ttl in ms
      */
-    set<T>(key: string, data: T, ttl?: number) {
+    async set<T>(key: string, data: T, ttl?: number) {
         // create folder if doesn't exist
         if (!fs.existsSync(this.path)) fs.mkdirSync(this.path, { recursive: true })
         
@@ -25,6 +25,11 @@ export class KVF {
         }, ttl)
     }
 
+    /**
+     * get data
+     * @param key 
+     * @returns data
+     */
     get(key: string): any | null {
         const p = path.join(this.path, key)
         if (!fs.existsSync(p)) return null
@@ -33,12 +38,19 @@ export class KVF {
         return JSON.parse(data)
     }
 
-    clear(key: string) {
+    /**
+     * clear saved data
+     * @param key 
+     */
+    async clear(key: string) {
         const p = path.join(this.path, key)
         if (fs.existsSync(p)) fs.unlinkSync(p)
     }
 
-    clearAll() {
+    /**
+     * clear all saved data
+     */
+    async clearAll() {
         fs.rmSync(this.path, { recursive: true })
     }
 
