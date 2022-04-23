@@ -27,6 +27,7 @@
     "kvfiledb"
   ],
   "author": "Velezer",
+  "repository": "https://github.com/Velezer/kvfiledb",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^27.4.1",
