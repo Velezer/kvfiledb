@@ -1,6 +1,11 @@
 # kvfiledb
  key-value file database with ttl
 
+# install
+```
+npm i kvfiledb
+```
+
 # usage
 ```ts
 import { KVF } from 'kvfiledb'

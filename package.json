@@ -21,7 +21,10 @@
     "value",
     "file",
     "database",
-    "db"
+    "db",
+    "kvf",
+    "kvfile",
+    "kvfiledb"
   ],
   "author": "Velezer",
   "license": "ISC",

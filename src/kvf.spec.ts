@@ -8,7 +8,7 @@ interface testtype {
     yes: boolean
 }
 
-beforeAll(() => kvf = new KVF())
+beforeAll(() => kvf = new KVF('--temp--'))
 afterAll(() => kvf.clearAll())
 
 describe('kvf without ttl', () => {
