@@ -2,15 +2,10 @@ import { DateNPO } from "./non-primitive"
 
 export function iterateTransform(obj: object): any {
     for (const key in obj) {
-        if (key === '__type__' || key === '__value__') break
-        // ---
-        if (Object(obj)[key] instanceof Date) {
-            Object(obj)[key] = DateNPO(Object(obj)[key] as Date)
-            continue
-        }
-        // ---
+        Object(obj)[key] = DateNPO(Object(obj)[key] as Date)
+        if ('__type__' in Object(Object(obj)[key]) || '__value__' in Object(Object(obj)[key])) continue
         if (typeof Object(obj)[key] === 'object' && Object(obj)[key] !== null) {
-            return transform(Object(obj)[key])
+            return iterateTransform(Object(obj)[key])
         }
     }
 }
