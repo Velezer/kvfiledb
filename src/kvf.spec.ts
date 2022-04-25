@@ -11,7 +11,10 @@ interface primitive {
 interface nonprimitive {
     date: Date
     another: {
-        date: Date
+        date: Date,
+        another: {
+            date: Date
+        }
     }
 }
 
@@ -35,6 +38,14 @@ describe('kvf with ttl', () => {
     })
 })
 describe('kvf without ttl', () => {
+    it('save string', async () => {
+        const key = 'key@valid.id'
+        const value = 'value'
+
+        kvf.set(key, value)
+        const data = kvf.get(key) as string
+        expect(data).toEqual(value)
+    })
     it('save object primitive', () => {
         const key = 'key-obj-primitive'
         const value: primitive = {
@@ -57,25 +68,26 @@ describe('kvf without ttl', () => {
     })
 })
 
-describe('kvf non primitive type', ()=>{
+describe('kvf non primitive type', () => {
     it('save object nonprimitive', () => {
         const key = 'key-obj-date'
         const value: nonprimitive = {
             date: new Date(),
-            another:{date: new Date()}
+            another: {
+                date: new Date(),
+                another: {
+                    date: new Date()
+                }
+            }
         }
         kvf.set(key, value)
         const data = kvf.get(key) as nonprimitive
         expect(data.date.getDate()).toEqual(new Date().getDate())
-        expect(data.date.getDay()).toEqual(new Date().getDay())
-        expect(data.date.getHours()).toEqual(new Date().getHours())
         expect(data.date.getMonth()).toEqual(new Date().getMonth())
-        expect(data.date.getFullYear()).toEqual(new Date().getFullYear())
         expect(data.another.date.getDate()).toEqual(new Date().getDate())
-        expect(data.another.date.getDay()).toEqual(new Date().getDay())
-        expect(data.another.date.getHours()).toEqual(new Date().getHours())
         expect(data.another.date.getMonth()).toEqual(new Date().getMonth())
-        expect(data.another.date.getFullYear()).toEqual(new Date().getFullYear())
+        expect(data.another.another.date.getDate()).toEqual(new Date().getDate())
+        expect(data.another.another.date.getMonth()).toEqual(new Date().getMonth())
     })
     it('save new Date()', () => {
         const key = 'key-date'
@@ -83,8 +95,6 @@ describe('kvf non primitive type', ()=>{
         kvf.set(key, value)
         const data = kvf.get(key) as Date
         expect(data.getDate()).toEqual(new Date().getDate())
-        expect(data.getDay()).toEqual(new Date().getDay())
-        expect(data.getHours()).toEqual(new Date().getHours())
         expect(data.getMonth()).toEqual(new Date().getMonth())
         expect(data.getFullYear()).toEqual(new Date().getFullYear())
     })
