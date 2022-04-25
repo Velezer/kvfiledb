@@ -4,7 +4,7 @@ let kvf: KVF
 
 interface testtype {
     name: string
-    test: number
+    num: number
     yes: boolean
 }
 
@@ -23,12 +23,19 @@ describe('kvf without ttl', () => {
         const keytest = 'key-test'
         const value: testtype = {
             name: 'name',
-            test: 12,
+            num: 12,
             yes: false
         }
         kvf.set(keytest, value)
         const data = kvf.get(keytest) as testtype
         expect(data).toEqual(value)
+    })
+    it('save new Date()', () => {
+        const keytest = 'key-date'
+        const value = new Date()
+        kvf.set(keytest, value)
+        const data = kvf.get(keytest) as Date
+        expect(new Date(data)).toEqual(value)
     })
 })
 

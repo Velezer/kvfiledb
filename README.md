@@ -17,3 +17,7 @@ kvf.clear('key')
 kvf.clearAll()
 ```
 
+# features
+- save primitive type
+- save json type
+- support Date type
