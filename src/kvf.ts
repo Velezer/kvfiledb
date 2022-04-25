@@ -14,11 +14,17 @@ export class KVF {
      * @param ttl in ms
      */
     async set<T>(key: string, data: T, ttl?: number) {
-        // create folder if doesn't exist
-        if (!fs.existsSync(this.path)) fs.mkdirSync(this.path, { recursive: true })
-
         const p = path.join(this.path, key)
-        fs.writeFileSync(p, JSON.stringify(data, null, '\t'), { encoding: 'utf8' })
+        try {
+            fs.writeFileSync(p, JSON.stringify(data, null, '\t'), { encoding: 'utf8' })
+        } catch (err: any) {
+            if (err.code == 'ENOENT'){
+                if (!fs.existsSync(this.path)) {// create folder if doesn't exist
+                    fs.mkdirSync(this.path, { recursive: true })
+                    fs.writeFileSync(p, JSON.stringify(data, null, '\t'), { encoding: 'utf8' })
+                }
+            }
+        }
 
         if (ttl !== undefined) setTimeout(() => {
             this.clear(key)
@@ -37,8 +43,8 @@ export class KVF {
         const data = fs.readFileSync(p, { encoding: 'utf8' })
         return JSON.parse(data, (k, v) => {
             if (typeof v === 'string') {
-                const date: Date = new Date(v)
-                if (!isNaN(date.getTime())) return date
+                const date = new Date(v)
+                if (!isNaN(Number(date))) return date
             }
             return v
         })

@@ -13,6 +13,22 @@ interface testtype {
 beforeAll(() => kvf = new KVF('--temp--'))
 afterAll(() => kvf.clearAll())
 
+describe('kvf with ttl', () => {
+    it('save string', async () => {
+        const key = 'key-ttl@valid.id'
+        const value = 'value'
+        const ttl = 1
+
+        kvf.set(key, value, ttl)
+        const data = kvf.get(key) as string
+        expect(data).toEqual(value)
+
+        await new Promise(resolve => setTimeout(resolve, ttl))
+
+        const nodata = kvf.get(key) as string
+        expect(nodata).toEqual(null)
+    })
+})
 describe('kvf without ttl', () => {
     it('save testtype', () => {
         const key = 'key-test'
@@ -44,19 +60,3 @@ describe('kvf without ttl', () => {
     })
 })
 
-describe('kvf with ttl', () => {
-    it('save string', async () => {
-        const key = 'key-ttl'
-        const value = 'value'
-        const ttl = 10
-
-        kvf.set(key, value, ttl)
-        const data = kvf.get(key) as string
-        expect(data).toEqual(value)
-
-        await new Promise(resolve => setTimeout(resolve, ttl))
-
-        const nodata = kvf.get(key) as string
-        expect(nodata).toEqual(null)
-    })
-})
