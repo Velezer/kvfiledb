@@ -83,11 +83,8 @@ describe('kvf non primitive type', () => {
         kvf.set(key, value)
         const data = kvf.get(key) as nonprimitive
         expect(data.date.getDate()).toEqual(new Date().getDate())
-        expect(data.date.getMonth()).toEqual(new Date().getMonth())
         expect(data.another.date.getDate()).toEqual(new Date().getDate())
-        expect(data.another.date.getMonth()).toEqual(new Date().getMonth())
         expect(data.another.another.date.getDate()).toEqual(new Date().getDate())
-        expect(data.another.another.date.getMonth()).toEqual(new Date().getMonth())
     })
     it('save new Date()', () => {
         const key = 'key-date'
@@ -95,8 +92,6 @@ describe('kvf non primitive type', () => {
         kvf.set(key, value)
         const data = kvf.get(key) as Date
         expect(data.getDate()).toEqual(new Date().getDate())
-        expect(data.getMonth()).toEqual(new Date().getMonth())
-        expect(data.getFullYear()).toEqual(new Date().getFullYear())
     })
 })
 
@@ -119,8 +114,16 @@ describe('getter-only object', () => {
         kvf.set(key, value)
         const data = kvf.get(key) as GetterOnly
         expect(data.prop.getDate()).toEqual(new Date().getDate())
-        expect(data.prop.getMonth()).toEqual(new Date().getMonth())
-        expect(data.prop.getFullYear()).toEqual(new Date().getFullYear())
+    })
+})
+
+describe('Uint8Array obj', () => {
+    it('save Uint8Artay', () => {
+        const key = 'key-uint8array'
+        const value = { arr: new Uint8Array([1, 2, 3, 4]) }
+        kvf.set(key, value)
+        let { arr } = kvf.get(key)
+        expect(arr).toEqual({ arr: new Uint8Array([1, 2, 3, 4]) }.arr)
     })
 })
 

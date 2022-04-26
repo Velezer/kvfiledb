@@ -1,8 +1,12 @@
-import { DateNPO } from "./non-primitive"
+import { DateNPO, Uint8ArrayNPO } from "./non-primitive"
 
 function iterateTransform(obj: object): any {
     for (const key in obj) {
         const value = Object(obj)[key]
+        if (value instanceof Uint8Array) {
+            Object(obj)[key] = Uint8ArrayNPO(value)
+            continue
+        }
         delete Object(obj)[key]
         Object(obj)[key] = DateNPO(value as Date)
         if ('__type__' in Object(Object(obj)[key]) || '__value__' in Object(Object(obj)[key])) continue

@@ -52,7 +52,9 @@ export class KVF {
 
         const data = fs.readFileSync(p, { encoding: 'utf8' })
         return JSON.parse(data, (k, v) => {
-            if (v?.__type__ === 'date') return new Date(v.__value__)
+            const t = v?.__type__
+            if (t === 'Date') v = new Date(v.__value__)
+            if (t === 'Uint8Array') v = new Uint8Array(Object.values(v.__value__))
             return v
         })
     }
