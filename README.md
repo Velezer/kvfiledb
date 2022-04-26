@@ -19,9 +19,9 @@ kvf.clearAll()
 ```
 
 # features
-- save primitive type
+- save primitive types
 - save json type
-- support Date type
+- support non primitive types
 
 # non primitive types
 if you have 
@@ -40,3 +40,7 @@ you don't need to parse it. this package will do it for you
 ```ts
 const getData = kvf.get('key') as Date // this is a Date type whether you do type cast or not
 ```
+
+# supported non primitive types
+- Date
+- Uint8Array
