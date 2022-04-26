@@ -2,7 +2,9 @@ import { DateNPO } from "./non-primitive"
 
 function iterateTransform(obj: object): any {
     for (const key in obj) {
-        Object(obj)[key] = DateNPO(Object(obj)[key] as Date)
+        const value = Object(obj)[key]
+        delete Object(obj)[key]
+        Object(obj)[key] = DateNPO(value as Date)
         if ('__type__' in Object(Object(obj)[key]) || '__value__' in Object(Object(obj)[key])) continue
         if (typeof Object(obj)[key] === 'object' && Object(obj)[key] !== null) {
             return iterateTransform(Object(obj)[key])

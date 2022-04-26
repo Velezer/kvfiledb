@@ -100,3 +100,27 @@ describe('kvf non primitive type', () => {
     })
 })
 
+interface GetterOnly {
+    readonly prop: Date
+}
+
+function createGetterOnly(prop: any): GetterOnly {
+    return {
+        get prop() {
+            return prop
+        }
+    }
+}
+
+describe('getter-only object', () => {
+    it('save getter-only object', () => {
+        const key = 'key-getter-only'
+        const value: GetterOnly = createGetterOnly(new Date())
+        kvf.set(key, value)
+        const data = kvf.get(key) as GetterOnly
+        expect(data.prop.getDate()).toEqual(new Date().getDate())
+        expect(data.prop.getMonth()).toEqual(new Date().getMonth())
+        expect(data.prop.getFullYear()).toEqual(new Date().getFullYear())
+    })
+})
+
