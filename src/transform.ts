@@ -1,15 +1,17 @@
-import { DateNPO, Uint8ArrayNPO } from "./non-primitive"
+import { Transformers } from "./non-primitive";
 
 function iterateTransform(obj: object): any {
     for (const key in obj) {
         const value = Object(obj)[key]
-        if (value instanceof Uint8Array) {
-            Object(obj)[key] = Uint8ArrayNPO(value)
-            continue
+        try {
+            delete Object(obj)[key] // handle getter-only object
+        } catch (err) { }
+        for (const t of Transformers) {
+            Object(obj)[key] = t(value)
+            if (Object(obj)[key] !== value) break
         }
-        delete Object(obj)[key]
-        Object(obj)[key] = DateNPO(value as Date)
-        if ('__type__' in Object(Object(obj)[key]) || '__value__' in Object(Object(obj)[key])) continue
+        if ('__type__' in Object(Object(obj)[key])) continue
+
         if (typeof Object(obj)[key] === 'object' && Object(obj)[key] !== null) {
             return iterateTransform(Object(obj)[key])
         }
@@ -17,8 +19,12 @@ function iterateTransform(obj: object): any {
 }
 
 export function transform(obj: object): any {
-    if (Object.keys(obj).length === 0) {
-        obj = DateNPO(obj as Date)
-    } else iterateTransform(obj)
+    const value = obj
+    for (const t of Transformers) {
+        obj = t(obj)
+        if (obj !== value) return obj
+    }
+    iterateTransform(obj)
     return obj
 }
+

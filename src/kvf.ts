@@ -28,10 +28,9 @@ export class KVF {
      * @param data can be anything
      * @param ttl in ms
      */
-    set<T>(key: string, data: T | object, ttl?: number) {
-        if (data === null) return
-        if (typeof data === 'object') {
-            data = transform(data as object)
+    set<T>(key: string, data: T , ttl?: number) {
+        if (typeof data === 'object' && data !== null) {
+            data = transform(data as any)
         }
 
         this._set(key, data, ttl)
@@ -54,7 +53,7 @@ export class KVF {
         return JSON.parse(data, (k, v) => {
             const t = v?.__type__
             if (t === 'Date') v = new Date(v.__value__)
-            if (t === 'Uint8Array') v = new Uint8Array(Object.values(v.__value__))
+            if (t === 'Uint8Array') v = new Uint8Array(v.__value__)
             return v
         })
     }
@@ -72,7 +71,7 @@ export class KVF {
      * clear all saved data
      */
     clearAll() {
-        fs.rmSync(this.path, { recursive: true })
+        if (fs.existsSync(this.path)) fs.rmSync(this.path, { recursive: true })
     }
 
 }
