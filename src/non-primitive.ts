@@ -16,7 +16,15 @@ function Uint8ArrayNPO(__value__: Uint8Array | Object) {
     return __value__
 }
 
+function BufferNPO(__value__: Buffer | Object) {
+    if (__value__ instanceof Buffer) {
+        return NonPrimitiveObject('Buffer', Object.values(__value__))
+    }
+    return __value__
+}
+
 export const Transformers = [
     DateNPO,
+    BufferNPO,
     Uint8ArrayNPO
 ]
