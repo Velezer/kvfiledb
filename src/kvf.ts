@@ -53,8 +53,7 @@ export class KVF {
         return JSON.parse(data, (k, v) => {
             const t = v?.__type__
             if (t === 'Date') v = new Date(v.__value__)
-            if (t === 'Buffer') v = Buffer.from(v.__value__)
-            if (t === 'Uint8Array') v = new Uint8Array(v.__value__)
+            if (t === 'Uint8Array' || t === 'Buffer') v = new Uint8Array(v.__value__)
             return v
         })
     }

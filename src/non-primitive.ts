@@ -18,7 +18,7 @@ function Uint8ArrayNPO(__value__: Uint8Array | Object) {
 
 function BufferNPO(__value__: Buffer | Object) {
     if (__value__ instanceof Buffer) {
-        return NonPrimitiveObject('Buffer', Object.values(__value__))
+        return NonPrimitiveObject('Uint8Array', __value__.toJSON().data)
     }
     return __value__
 }
