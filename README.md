@@ -21,11 +21,12 @@ kvf.clearAll()
 # features
 - save primitive types
 - save json type
-- support non primitive types
+- save non primitive types
 
 # supported non primitive types
 - Date
 - Uint8Array
+- Buffer
 
 # note on non primitive types
 if you have 
