@@ -26,18 +26,15 @@ export class KVF {
      * the data will be stored as a file
      * @param key is the filename. please don't use invalid filename
      * @param data can be anything
-     * @param ttl in ms
+     * @param ttl in ms - if undefined your data won't be cleared
      */
-    set<T>(key: string, data: T , ttl?: number) {
+    set<T>(key: string, data: T, ttl?: number) {
         if (typeof data === 'object' && data !== null) {
             data = transform(data as any)
         }
 
         this._set(key, data, ttl)
-
-        if (ttl !== undefined) setTimeout(() => {
-            this.clear(key)
-        }, ttl)
+        if (ttl) this.clear(key, ttl)
     }
 
     /**
@@ -51,20 +48,32 @@ export class KVF {
 
         const data = fs.readFileSync(p, { encoding: 'utf8' })
         return JSON.parse(data, (k, v) => {
-            const t = v?.__type__
-            if (t === 'Date') v = new Date(v.__value__)
-            if (t === 'Uint8Array' || t === 'Buffer') v = new Uint8Array(v.__value__)
+            if (typeof v === 'string') {
+                try {
+                    if (v.startsWith('Date|')) v = new Date(v.replace('Date|', ''))
+                    if (v.startsWith('Uint8Array|')) v = new Uint8Array(eval(v.replace('Uint8Array|', '')))
+                    if (v.startsWith('Buffer|')) v = Buffer.from(eval(v.replace('Buffer|', '')))
+                } catch (err) {
+                }
+            }
             return v
         })
     }
 
+    private _clear(key: string) {
+        const p = path.join(this.path, key)
+        if (fs.existsSync(p)) fs.unlinkSync(p)
+    }
     /**
      * clear saved data
      * @param key 
+     * @param ttl if undefined will clear immediately
      */
-    clear(key: string) {
-        const p = path.join(this.path, key)
-        if (fs.existsSync(p)) fs.unlinkSync(p)
+    clear(key: string, ttl?: number) {
+        if (ttl !== undefined) setTimeout(() => {
+                this._clear(key)
+            }, ttl)
+        else this._clear(key)
     }
 
     /**

@@ -101,5 +101,5 @@
   "ts-node": {
     "transpileOnly": true
   },
-  "exclude": ["src/*.spec.ts"]
+  "exclude": ["src/**/*.spec.ts"]
 }

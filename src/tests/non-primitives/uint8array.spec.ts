@@ -11,7 +11,7 @@ afterAll(() => kvf.clearAll())
 
 
 describe('Uint8Array', () => {
-    it('save object ccontains Uint8Artay', () => {
+    it('save object contains Uint8Array', () => {
         const key = 'key-obj-uint8array'
         const value = { arr: new Uint8Array([1, 2, 3, 4]) }
         kvf.set(key, value)

@@ -15,15 +15,15 @@ describe('Buffer', () => {
         const key = 'key-obj-Buffer'
         kvf.set(key, { buff: Buffer.from([1, 2, 3, 4]) })
         const { buff } = kvf.get(key)
-        expect(buff).toEqual(new Uint8Array({ buff: Buffer.from([1, 2, 3, 4]) }.buff.toJSON().data))
+        expect(buff).toEqual(Buffer.from({ buff: Buffer.from([1, 2, 3, 4]) }.buff.toJSON().data))
     })
 
     it('save Buffer', () => {
         const key = 'key-Buffer'
-        const value = Buffer.from([1, 2, 3])
-        kvf.set(key, value)
-        const data = kvf.get(key) as Uint8Array
-        expect(data).toEqual(new Uint8Array(value))
+        const arr = [1, 2, 3]
+        kvf.set(key, Buffer.from(arr))
+        const data = kvf.get(key) as Buffer
+        expect(data).toEqual(Buffer.from(arr))
     })
 })
 

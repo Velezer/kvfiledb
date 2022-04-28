@@ -10,7 +10,6 @@ function iterateTransform(obj: object): any {
             Object(obj)[key] = t(value)
             if (Object(obj)[key] !== value) break
         }
-        if ('__type__' in Object(Object(obj)[key])) continue
 
         if (typeof Object(obj)[key] === 'object' && Object(obj)[key] !== null) {
             return iterateTransform(Object(obj)[key])
@@ -21,7 +20,7 @@ function iterateTransform(obj: object): any {
 export function transform(obj: object): any {
     const value = obj
     for (const t of Transformers) {
-        obj = t(obj)
+        obj = t(obj as any) as any
         if (obj !== value) return obj
     }
     iterateTransform(obj)

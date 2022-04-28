@@ -36,10 +36,7 @@ kvf.set('key', data)
 ```
 it will be saved as
 ```json
-{
-	"__type__": "Date",
-	"__value__": "2022-04-26T04:50:15.171Z"
-}
+"Date|2022-04-26T04:50:15.171Z"
 ```
 you don't need to parse it. this package will do it for you
 ```ts
