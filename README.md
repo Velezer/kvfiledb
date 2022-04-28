@@ -26,7 +26,7 @@ kvf.clearAll()
 # supported non primitive types
 - Date
 - Uint8Array
-- Buffer
+- Buffer (will convert to Uint8Array)
 
 # note on non primitive types
 if you have 
