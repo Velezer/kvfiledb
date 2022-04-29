@@ -25,8 +25,8 @@ kvf.clearAll()
 
 # supported non primitive types
 - Date
+- Buffer
 - Uint8Array
-- Buffer (will convert to Uint8Array)
 
 # note on non primitive types
 if you have 
@@ -43,11 +43,4 @@ you don't need to parse it. this package will do it for you
 const getData = kvf.get('key') as Date // this is a Date type regardless you do type cast or not
 ```
 
-# save Buffer type | Warning!
-please consider to save a Uint8Array because this package will convert Buffer to Uint8Array.
-if you have 
-```ts
-kvf.set('key', Buffer.from([1,2,3]))
-const data = kvf.get('key') // you will get Uint8Array 
-```
 

@@ -1,7 +1,7 @@
 {
   "name": "kvfiledb",
-  "version": "0.1.5",
-  "description": "key-value file database with ttl",
+  "version": "0.2.0",
+  "description": "key-value file database with ttl",  
   "scripts": {
     "prebuild": "npm run typecheck && npm t",
     "build": "tsc",
