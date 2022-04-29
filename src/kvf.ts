@@ -34,7 +34,7 @@ export class KVF {
         }
 
         this._set(key, data, ttl)
-        if (ttl) this.clear(key, ttl)
+        if (ttl !== undefined) this.clear(key, ttl)
     }
 
     /**
